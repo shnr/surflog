@@ -73482,6 +73482,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           // アップロード画像があるのでFormData型で値を渡す
           var params = new FormData();
+          params.append('surf_datetime', self.surf_datetime);
           params.append('location', self.location);
           params.append('condition', self.condition);
           params.append('swell_height', self.swell_height);
@@ -77283,6 +77284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           // アップロード画像があるのでFormData型で値を渡す
           var params = new FormData();
+          params.append('surf_datetime', self.surf_datetime);
           params.append('location', self.location);
           params.append('condition', self.condition);
           params.append('swell_height', self.swell_height);
