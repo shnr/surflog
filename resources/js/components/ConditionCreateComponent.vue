@@ -5,17 +5,21 @@
 
       <div class="form-group surf_datetime_wrapper">
         <label for="surf_datetime">Surf Datetime</label>
-        <date-picker v-model="surf_datetime" :config="options" class=""></date-picker>
+        <date-picker v-model="surf_datetime" :config="datepickerOptions" class=""></date-picker>
       </div>
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" class="form-control" v-model="location" name="location">
+        <input type="text" class="form-control" v-model="location" name="location"
+         v-bind:class="{ is_error : errors.location }">
+        <p class="errortxt" v-if="errors.location">Location must be filled.</p>
       </div>
       <div class="form-group">
         <label for="condition">Condition</label>
-        <select class="form-control" v-model="condition">
+        <select class="form-control" v-model="condition"
+         v-bind:class="{ is_error : errors.condition }">
           <option v-for="item in selectOptions.conditions" v-bind:value="item">{{item}}</option>
         </select>
+        <p class="errortxt" v-if="errors.condition">Condition must be filled.</p>
       </div>
       <div class="form-group">
         <label for="swell_height">Swell height</label>
@@ -90,9 +94,15 @@
   import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
   export default {
+
+    mixins: [
+      Vue.extend(require('./CommonFunc.vue')),
+    ],
+
     components: {
       datePicker
     },
+
     created() {
       const self = this
       console.log(this.$store.getters.getLoginStatus)
@@ -110,100 +120,26 @@
     data() {
       return {
         date: new Date(),
-        // dp options
-        // http://eonasdan.github.io/bootstrap-datetimepicker/Options/
-        options: {
-          format: 'YYYY-MM-DD h:mm:ss',
-          useCurrent: true,
-          showClear: true,
-          showClose: true,
-          debug: false
-        },
 
-        selectOptions: {
-          conditions: [
-            "poor",
-            "fair",
-            "good",
-            "excellent",
-            "perfect"
-          ],
-          swellHeight: {
-            1: "knee",
-            2: "chest",
-            3: 'shoulder',
-            4: 'head',
-            5: 'overhead',
-            6: 'double'
-          },
-          swellDirection: [
-            'N',
-            'NNE',
-            'NE',
-            'ENE',
-            'E',
-            'ESE',
-            'SE',
-            'SSE',
-            'S',
-            'SSW',
-            'SW',
-            'WSW',
-            'W',
-            'WNW',
-            'NW',
-            'NNW'
-          ],
-          windStrengthMax: 20,
-          windDirection: [
-            'N',
-            'NNE',
-            'NE',
-            'ENE',
-            'E',
-            'ESE',
-            'SE',
-            'SSE',
-            'S',
-            'SSW',
-            'SW',
-            'WSW',
-            'W',
-            'WNW',
-            'NW',
-            'NNW'
-          ],
-          wetsuits: [
-            'semidry',
-            '3mmfull',
-            'seagul',
-            'longspring',
-            'tapper',
-            'trunks'
-          ],
-          quiver: [
-            'cipodmod',
-            'bic sup',
-            'ryko',
-            'cinewflyer',
-            'beater'
-          ]
-        },
 
         loggedIn: false,
-        condition: null,
-        surf_datetime: null,
-        location: null,
-        swell_height: null,
-        swell_direction: null,
-        wind_strength: null,
-        wind_direction: null,
-        wetsuits: null,
-        quiver: null,
-        comment: null,
+        condition: '',
+        surf_datetime: '',
+        location: '',
+        swell_height: '',
+        swell_direction: '',
+        wind_strength: '',
+        wind_direction: '',
+        wetsuits: '',
+        quiver: '',
+        comment: '',
         uploadFile: null,
         uploadedImages: [],
-        uploadedImageDatas: null
+        uploadedImageDatas: null,
+        errors: {
+          location: false,
+          condition: false,
+        }
       }
     },
 
@@ -267,13 +203,35 @@
 
       btnPost() {
         const self = this
-        self.addLog()
-        .then( function(response) {
-          // console.log(response)
-          // if (response !== '') {
-          //   self.$router.push('/')
-          // }        
-        })
+        let isValid = self.formValidation()
+        if(isValid){
+          self.addLog()
+          .then( function(response) {
+            // console.log(response)
+            if (response !== '') {
+              self.$router.push('/')
+            }        
+          })
+        }
+      },
+
+
+      /*
+        Error check
+        must be filled: location, condition, 
+        */
+      formValidation() {
+        const self = this
+        let isValid = true
+        if(self.location === '') {
+          self.errors.location = true
+          isValid = false
+        }
+        if(self.condition === '') {
+          self.errors.condition = true
+          isValid = false
+        }
+        return isValid;
       },
 
       /*
@@ -301,8 +259,8 @@
             // params.append('file', self.uploadFile);
 
             // images
-            // fileList型のままPostする必要がある。            
-            if (self.uploadedImageDatas.length > 0) {
+            // fileList型のままPostする必要がある。
+            if (self.uploadedImageDatas != null && self.uploadedImageDatas.length > 0) {
               for(let i=0;i<self.uploadedImageDatas.length;i++){                
                 params.append('file[]', self.uploadedImageDatas[i])
               }

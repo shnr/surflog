@@ -11138,7 +11138,7 @@ body {
   width: 100%;
   padding: 0.4em .75rem;
   margin-bottom: 0.8em;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1;
   height: auto;
   color: #495057;
@@ -11148,6 +11148,16 @@ body {
   border-radius: .25rem;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.form-control.is_error {
+  border: 1px solid #f00;
+}
+
+.errortxt {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #f00;
 }
 
 .btn-login {
@@ -11359,6 +11369,121 @@ body {
 
 .surf_datetime_wrapper .bootstrap-datetimepicker-widget table td {
   font-size: 1.4rem;
+}
+
+.condition-detail_mainimage .imgwrapper {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding-top: 60%;
+}
+
+.condition-detail_content .detail-box {
+  padding: 4.27vw;
+}
+
+.condition-detail_content .date-txt {
+  font-size: 3.2rem;
+  margin-bottom: 4.27vw;
+}
+
+.condition-detail_content .log_summary {
+  margin-bottom: 4.27vw;
+}
+
+.condition-detail_content .log_summary dl {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  padding: 0;
+  margin: 0 0 5px;
+}
+
+.condition-detail_content .log_summary dl dt {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #999;
+  letter-spacing: 0.05em;
+  padding: 0;
+}
+
+.condition-detail_content .log_summary dl dd {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: #000;
+  letter-spacing: 0.05em;
+  margin: 0;
+  margin-left: 1em;
+}
+
+.condition-detail_content .log_summary dl:last-child {
+  margin-bottom: 0;
+}
+
+.condition-detail .delete-btn-wrap {
+  text-align: right;
+}
+
+.condition-detail .delete-btn-wrap a {
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.comment-box p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.detail-gallery-box {
+  padding-top: 4.27vw;
+}
+
+.detail-gallery-box .gallery-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 4.27vw;
+}
+
+.detail-gallery-box .blueimp-gallery > .close,
+.detail-gallery-box .blueimp-gallery > .next,
+.detail-gallery-box .blueimp-gallery > .play-pause,
+.detail-gallery-box .blueimp-gallery > .prev,
+.detail-gallery-box .blueimp-gallery > .slides > .slide > .slide-content {
+  color: #fff;
+  font-size: 3.2rem;
+}
+
+.detail-gallery-box .blueimp-gallery > .next,
+.detail-gallery-box .blueimp-gallery > .prev {
+  border: none;
+  background-color: transparent;
+}
+
+.detail-gallery-box a:not([href]):not([tabindex]):hover,
+.detail-gallery-box a:not([href]):not([tabindex]):focus {
+  color: #999;
+  text-decoration: none;
+}
+
+.image-panel-wrapper {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+}
+
+.image-panel-wrapper .image-panel {
+  display: block;
+  width: calc(33.333% - 2px);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 1px;
+  padding-top: 33.3333%;
 }
 
 html {

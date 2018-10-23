@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="log-fbox_cont log-fbox_cont__img">
-              <div class="imgwrapper" v-bind:style="{'background-image': 'url('+item.images[0].path + '/' + item.images[0].name +')'}" ></div>
+              <div v-if="item.images.length > 0" class="imgwrapper" v-bind:style="{'background-image': 'url('+item.images[0].path + '/' + item.images[0].name +')'}" ></div>
             </div>          
           </div>
         </router-link>
@@ -109,6 +109,7 @@
         })
       },
 
+
       /*
         Date Formatter
       */
@@ -164,6 +165,11 @@
       }
 
 
-    }
+    },
+
+    mixins: [
+      Vue.extend(require('./CommonFunc.vue')),
+    ]
+
   }
 </script>

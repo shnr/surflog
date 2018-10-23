@@ -105,40 +105,85 @@ class ConditionController extends Controller
             'condition' => 'required|max:255',
         ]);
 
-        $surf_datetime = (isset($request->surf_datetime))? $request->surf_datetime: date('Y-m-d H:i:s');
+        $surf_condition = [];
+        $surf_condition = $this->getConditionParams($surf_condition, $request);
 
-        $condition = $request->user()->conditions()->create([
-            'surf_datetime' => $surf_datetime,
-            'location' => $request->location, 
-            'location_lat' => $request->location_lat,
-            'location_lng' => $request->location_lng,
-            'condition' => $request->condition,
-            'swell_height' => $request->swell_height,
-            'swell_direction' => $request->swell_direction,
-            'wind_size' => $request->wind_strength,
-            'wind_direction' => $request->wind_direction,
-            'wetsuits' => $request->wetsuits,
-            'surfboard' => $request->quiver,
-            'comment' => $request->comment,
-            'memo' => $request->memo,
-        ]);
+        $condition = $request->user()->conditions()->create($surf_condition);
 
-
-        // FileList
+        // File Upload
         $fileList = $request->file('file');
-
-        // とりあえず。リサイズ範囲が決まったら作成。
-        $photo_type = 'original';
-        $condition_id = $condition->id;
-        $photos = [];
-
-        if (count($fileList) > 0) {
-          foreach ($fileList as $key => $file) {
-            $photos[] = $this->fileUploading($file, $photo_type, $condition_id);
-          }
+        if ($fileList != null) {
+          // とりあえず。リサイズ範囲が決まったら作成。
+          $photos = $this->updatePhotos($fileList, $condition->id);
         }
 
         return $condition;
+    }
+
+
+    /*
+      Update phosots
+    */
+    private function updatePhotos($fileList, $condition_id) {
+      $photo_type = 'original';
+      $photos = [];
+
+      if (count($fileList) > 0) {
+        foreach ($fileList as $key => $file) {
+          $photos[] = $this->fileUploading($file, $photo_type, $condition_id);
+        }
+      }
+      return $photos;
+    }
+
+
+    /*
+      Update all of these conditions
+    */
+    private function getConditionParams($surf_condition, $request){
+
+      $surf_datetime = (isset($request->surf_datetime))? $request->surf_datetime: date('Y-m-d H:i:s');
+
+      $surf_condition['surf_datetime'] = $surf_datetime;
+
+      // エスケープは特に考慮しなくてもOK？
+      if(isset($request->location)){
+        $surf_condition['location'] = $request->location;
+      }
+      if(isset($request->location_lat)){
+        $surf_condition['location_lat'] = $request->location_lat;
+      }
+      if(isset($request->location_lng)){
+        $surf_condition['location_lng'] = $request->location_lng;
+      }
+      if(isset($request->condition)){
+        $surf_condition['condition'] = $request->condition;
+      }
+      if(isset($request->swell_height) && $request->swell_height !== ''){
+        $surf_condition['swell_height'] = $request->swell_height;
+      }
+      if(isset($request->swell_direction)){
+        $surf_condition['swell_direction'] = $request->swell_direction;
+      }
+      if(isset($request->wind_strength) && $request->swell_height !== ''){
+        $surf_condition['wind_size'] = $request->wind_strength;
+      }
+      if(isset($request->wind_direction)){
+        $surf_condition['wind_direction'] = $request->wind_direction;
+      }
+      if(isset($request->quiver)){
+        $surf_condition['surfboard'] = $request->quiver;
+      }
+      if(isset($request->wetsuits)){
+        $surf_condition['wetsuits'] = $request->wetsuits;
+      }
+      if(isset($request->comment)){
+        $surf_condition['comment'] = $request->comment;
+      }
+
+
+      return $surf_condition;
+
     }
 
     /**
@@ -149,7 +194,11 @@ class ConditionController extends Controller
      */
     public function show($id)
     {
-        return Condition::findOrFail($id);
+        $condition = Condition::findOrFail($id);
+        $photos = $this->getPhotos($id);
+        $condition->images = $photos;
+
+        return $condition;
     }
 
     /**
@@ -160,7 +209,7 @@ class ConditionController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -175,21 +224,19 @@ class ConditionController extends Controller
         $condition = Condition::findOrFail($id);
 
         $this->authorize('update', $condition);
-        
-        // $condition->condition = $request->condition;
-
-        foreach ($request as $key => $value) {
-          $condition = $this->updateCondition($condition, $value, $request);
-        }
+       
+        $surf_condition = $this->getConditionParams($condition, $request);
     
-        $condition->save();
-        return $condition;
-    }
+        $surf_condition->save();
 
-    private function updateCondition($condition, $term, $request){
-        if(isset($request->$term)) {
-          $condition->$term = $request->term;  
+        // File Upload
+        $fileList = $request->file('file');
+        if ($fileList != null) {
+          // とりあえず。リサイズ範囲が決まったら作成。
+          $photos = $this->updatePhotos($fileList, $condition->id);
         }
+
+        return $surf_condition;
     }
 
 

@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::resource('tasks',  'TaskController');
   Route::resource('conditions',  'ConditionController');
 
+  // putではmultipart/form-dataを解釈しないため、postさせる
+  Route::post('conditions/{condition}', 'ConditionController@update');
+
 });
 
 
@@ -37,4 +40,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 // のauth()
 
 // Route::get('registerhoge', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('registerhoge', 'Auth\RegisterController@register');
+Route::post('register', 'Auth\RegisterController@register');
