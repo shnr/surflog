@@ -104,7 +104,8 @@
         }
   
         // conveert to date object
-        let date = new Date( oridate )      
+        // for safari.
+        let date = new Date( oridate.replace(/\s+/g, 'T') )
 
         var year = date.getFullYear();
         var month = (date.getMonth() + 1);
@@ -142,7 +143,6 @@
         let ret = format.replace(regex, function (str) {
             return replaceStrArray[str];
         });
-
         return ret;
 
       }
