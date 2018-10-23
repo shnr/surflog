@@ -1,5 +1,5 @@
-# laravel_oauth
+# Surflog
 
-簡単なSPAのサンプル。
-機能は簡易なCRUD。
-Laravelをバックエンド、Vue.jsをフロントで利用し認証はOauth。
+Log your surfing everyday.
+Take photo before and after session.
+
