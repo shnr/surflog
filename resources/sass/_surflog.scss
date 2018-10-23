@@ -1,0 +1,507 @@
+#app {
+  padding-bottom: 10.67vw;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+
+// google webfont
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+
+body{
+  font-family: 'Oswald', sans-serif;
+}
+
+// btn
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  // border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  @include transition(all, .7s, cubic-bezier(0.190, 1.000, 0.220, 1.000));
+}
+
+
+// header
+.header{
+  padding: 4.27vmin 0;
+  border-bottom: 4px solid #000;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.header-inner{
+
+}
+
+.header-title{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  a{
+    font-size: 2rem;
+    line-height: 1.6;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+  }  
+}
+
+
+
+// footer
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.9);
+  padding: 3.2vmin;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+
+  .foot-nav{
+
+    ul{
+      padding: 0;
+      display: -ms-flexbox;
+      display: flex;  
+      justify-content: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+
+    }
+
+    li{
+      justify-content: space-around;
+
+      list-style: none;
+      a, button{
+        font-size: 1.4rem;
+        line-height: 1.6;
+        color: #fff;
+        text-decoration: none;
+      }
+
+    }
+    .add-link{
+      a{
+        font-size: 3rem;
+        line-height: 1;
+      }      
+    }
+
+  }
+
+  .foot-logout{
+    position: absolute;
+    right: 10px;
+    top: 0;
+  }
+
+  .btn-foot-logout{
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #fff;
+    text-decoration: none;
+    padding: 0;
+  }
+
+}
+
+
+
+// container
+.app-container{
+  padding: 4.27vmin 3.2vw;
+}
+
+
+// login
+.box-login{
+  padding-top: 20px;
+  position: relative;
+
+  .ttl{
+    font-size: 1.8rem;
+    line-height: 1.6;
+    padding: 2em 0;
+    display: block;
+    text-align: center;
+    margin: 0 0 2em;
+    padding: 0;
+  }
+}
+
+.box-login-fbox{
+  display: -ms-flexbox;
+  display: flex;  
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+
+}
+
+.box-login-fcont{
+  justify-content: space-around;
+  width: 30%;
+  margin: 0 5px;
+  .btn{
+    font-size: 1.8rem;
+    line-height: 1.6;
+    padding: 2em 0;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+  }
+}
+
+.btn__register{
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #000; 
+}
+
+.btn__login{
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000; 
+}
+
+
+// logibn modal
+.modal-mask{
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+
+  display: -ms-flexbox;
+  display: flex;  
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  align-content: center;
+  -webkit-align-content: center; // Safari / iOS
+  -ms-flex-line-pack: center;
+  align-items: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  
+   
+}
+
+.modal-wrapper{
+
+}
+
+.modal-container{
+  width: 80vmin;
+  background-color: #fff;
+  padding: 4.27vmin;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.modal-body{
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.modal-lead{
+    font-size: 1.8rem;
+    line-height: 1.6;
+    padding: 0 0;
+    display: block;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 4.27vmin;
+}
+
+.form-control{
+  display: block;
+  width: 100%;
+  padding: 0.4em .75rem;
+  margin-bottom: 0.8em;
+  font-size: 1.4rem;
+  line-height: 1;
+  height: auto;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;  
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.textarea{
+  
+}
+
+.btn-login{
+  display: block;
+  width: 40%;
+  margin: 0 auto 1em;
+  // padding: 0.8em;
+  background-color: #000;
+  border: 1px solid #000;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.btn-close{
+  display: block;
+  width: 30%;
+  margin: 0 auto 0;
+  background-color: #ddd;
+  color: #000;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+
+.errormsg{
+      font-size: 1.4rem;
+    line-height: 1.5;
+    color: #f00;
+
+}
+
+
+
+
+
+
+// Log index
+.log-list{
+  padding: 0 1.3vmin;
+
+  .box-log{
+    margin-bottom: 4.27vmin;
+
+    a{
+      display: block;
+    }
+  }
+}
+
+
+.log-fbox{
+  display: -ms-flexbox;
+  display: flex;  
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  // align-content: center;
+  // -webkit-align-content: center; // Safari / iOS
+  // -ms-flex-line-pack: center;
+  // align-items: center;
+  // -webkit-align-items: center;
+  // -ms-flex-align: center;
+}
+
+.log-fbox_cont{
+  // display: block;
+  // -ms-flex: 1;
+  // flex: 1;
+  width: 50%;
+  padding: 4.27vw 4.27vw;
+  background-color: #f9f9f9;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.log_date{
+  font-size: 1.8rem;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: #000;
+  margin-bottom: 4.27vw;
+  text-align: left;
+}
+
+.log_summary{
+
+  dl{
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    margin: 0 0 5px;
+
+    dt{
+      font-size: 1.3rem;
+      line-height: 1.5;
+      color: #999;
+      letter-spacing: 0.05em;
+      padding: 0;
+    }
+    dd{
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: #000;
+      letter-spacing: 0.05em;
+      margin: 0;
+      margin-left: 1em;
+    }
+  }
+
+  dl:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.log-fbox_cont__img{
+  // height: 100%;
+  padding: 0;
+  .imgwrapper{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+  }
+}
+
+
+
+// create
+
+.logcreate-box{
+
+}
+
+.form-group{
+
+  label{
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 0.2em;
+  }
+
+
+
+
+}
+
+
+.lbl-myphotofiles{
+  font-size: 1.4rem;
+  padding: 0.8em;
+  border: 2px dotted #f1f1f1;
+  width: 100%;
+  margin-bottom: 1em;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+
+  input{
+    display: none;
+  }
+}
+
+.addbtn-wrapper{
+  padding-top: 10px;
+  text-align: center;
+}
+.btn-addlog{
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0.4em 4em;
+  background-color: #000;
+  color: #fff;
+}
+
+.img-upload-preview{
+  display: -ms-flexbox;
+  display: flex;  
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+
+  width: 100%;
+  img{
+    max-width: 100%;
+  }
+
+
+  .upload-image{
+    width: calc(33.33333% - 2px);
+    padding-top: 33.33333%;    
+    position: relative;
+    margin: 1px;
+    text-align: center;
+
+    .imageElem{
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      display: block;
+      height: 100%;
+
+      &:after{
+        content: "";
+        display: block;
+        padding-top: 33.33333%;
+        width: 100%;
+      }
+    }
+
+    .delbtn{
+      position: absolute;
+      bottom: 0;
+      background: rgba(255,255,255,0.9);
+      display: block;
+      left: 0;
+      right: 0;
+      margin: auto;
+      z-index: 2;
+      padding: 0.4em 0.8em;
+      font-size: 1.0rem;
+    }
+  }
+
+
+}
+
+.surf_datetime_wrapper{
+  position: relative;
+
+  .bootstrap-datetimepicker-widget.wider{
+    width: 100%;
+  }
+
+  .bootstrap-datetimepicker-widget table th{
+    font-size: 1.4rem;
+  }
+  .bootstrap-datetimepicker-widget table td{
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,92 @@
+/* mixins
+--------------------------------------------------------*/
+@mixin linkColor_define($color, $hcolor) {
+     color: $color;
+     &:hover, &:active, &:focus {
+         color: $hcolor;
+     }
+}
+
+@mixin linkColor_define_underline($color, $hcolor) {
+     color: $color;
+     &:hover, &:active, &:focus {
+         color: $hcolor;
+         text-decoration: underline;
+     }
+}
+
+@mixin linkBgColor_define($color, $hcolor)  {
+     background-color: $color;
+     &:hover, &:active, &:focus {
+         background-color: $hcolor;
+     }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin rotate($degrees) {
+  -webkit-transform: rotate($degrees);
+  -moz-transform: rotate($degrees);
+  -ms-transform: rotate($degrees);
+  -o-transform: rotate($degrees);
+  transform: rotate($degrees);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=#{-1*sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+  filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=#{-1*sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+}
+
+
+
+$sidebav-transition-time: 0.3s;
+$sidebav-transition-method: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$sidebav-transition-easeInQuart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+
+//easeOutExpo
+$transition-easeOutExpo: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+
+
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}
+
+@mixin transition-delay($transition-property, $transition-time, $method, $delay) {
+    -webkit-transition: $transition-property $transition-time $method $delay;
+    -moz-transition: $transition-property $transition-time $method $delay;
+    -ms-transition: $transition-property $transition-time $method $delay;
+    -o-transition: $transition-property $transition-time $method $delay;
+    transition: $transition-property $transition-time $method $delay;
+}
+
+@mixin myanimationdelay($animation-property, $animation-time, $method, $delay) {
+    -webkit-animation: $animation-property $animation-time $method $delay;
+    -moz-animation: $animation-property $animation-time $method $delay;
+    -ms-animation: $animation-property $animation-time $method $delay;
+    -o-animation: $animation-property $animation-time $method $delay;
+    animation: $animation-property $animation-time $method $delay;
+}
+
+@mixin myanimation($animation-property, $animation-time, $method) {
+    -webkit-animation: $animation-property $animation-time $method;
+    -moz-animation: $animation-property $animation-time $method;
+    -ms-animation: $animation-property $animation-time $method;
+    -o-animation: $animation-property $animation-time $method;
+    animation: $animation-property $animation-time $method;
+}
+
+@mixin hp-opacity($trans) {
+  filter: alpha(opactiy=($trans * 100));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$trans * 100})";
+  -moz-opacity: $trans;
+  -khtml-opacity: $trans;
+  opacity: $trans;
+}
+

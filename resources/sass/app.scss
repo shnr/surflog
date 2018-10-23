@@ -1,0 +1,35 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// normalize
+// https://github.com/JohnAlbin/normalize-scss
+@import 'normalize';
+
+// mixin
+@import 'mixin';
+
+// Variables
+@import 'variables';
+
+// sruflog layout
+@import 'surflog';
+
+html{
+  background-color: #fff;
+}
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.flex-center{
+  background-color: #fff;
+}
+
+
+
