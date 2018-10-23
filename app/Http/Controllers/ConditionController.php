@@ -22,6 +22,14 @@ class ConditionController extends Controller
     use PhotoTrait;
 
 
+    // thumbnail sizes
+    private $imageSizes = [
+      'thumbnail' => 480,
+      'medium' => 1280,
+      'large' => 1920,
+    ];
+
+
     /**
      * The condition repository instance.
      *
@@ -47,9 +55,9 @@ class ConditionController extends Controller
         $results = [];
         $conditions = $this->condition->forUser($request->user());
 
-        // add photos
+        // get thumbail images
         foreach ($conditions as $key => $value) {
-          $photos = $this->getPhotos($value->id);
+          $photos = $this->getPhotos($value->id, $this->imageSizes["thumbnail"]);
           $value->images = $photos;
           $results[] = $value;
         }
@@ -59,35 +67,75 @@ class ConditionController extends Controller
     }
 
 
-    private function fileUploading($file, $photo_type, $condition_id) {
+    /*
+      Update phosots
+    */
+    private function updatePhotos($fileList, $condition_id) {      
+      $photos = [];
+
+      if (count($fileList) > 0) {
+        foreach ($fileList as $key => $file) {
+          $photos[] = $this->fileUploading($file, $condition_id);
+        }
+      }
+      return $photos;
+    }
+
+
+    /*
+      Image uploading
+      Reference: http://image.intervention.io/use/basics
+    */
+    private function fileUploading($file, $condition_id) {
+
+      $photos = [];
+
+      // settting
+      $keep_default_image = false; // if you keep original, set true.
+      $image_maxwidth = $this->imageSizes;
 
       // file upload sample.
       $image = Image::make(file_get_contents($file->getRealPath()));
-      $orgfileName = $file->getClientOriginalName();
+      // $orgfileName = $file->getClientOriginalName();
+      
       $extension = $file->getClientOriginalExtension();
-      $fileName = mt_rand() . '.' . $extension;
       $date = new DateTime();
       $imageDir = '/uploads/' . $date->format('Y-m-d_His');    
       $imagePath = public_path() . $imageDir;
-      $imageName = $imagePath . '/' . $fileName;
-      if(file_exists($imagePath)) {
-        $image->save($imageName);
-      } else {
+
+      // create directory
+      if(!file_exists($imagePath)) {
         if(mkdir($imagePath, 0777)){
-          chmod($imagePath, 0777);
-          $image->save($imageName);
+          chmod($imagePath, 0777);          
         } else{
-          // error
-          // error handlingしなきゃ
+          // TODO: error handling
           return false;
         }
       }
 
-      // insert into Photo table 
-      $photo = $this->addPhoto($fileName, $imageDir, $photo_type, $condition_id);
+      // save default image
+      if( $keep_default_image ){
+        $photo_type = 'original';
+        $image_maxwidth[] = $photo_type;
+      }
 
-      return $photo;
+      foreach ($image_maxwidth as $key => $value) {
+        if($value ===  'original'){
+          $fileName = mt_rand() . '.' . $extension;
+        } else {
+          $fileName = mt_rand() . '_' . $value . '.' . $extension;
+          $image->resize($value, null, function ($constraint) {
+              $constraint->aspectRatio();
+          });        
+        }
+        $imageName = $imagePath . '/' . $fileName;
+        $image->save($imageName);  
+        // insert into Photo table 
+        $photos[] = $this->addPhoto($fileName, $imageDir, $value, $condition_id);
+      }
 
+      
+      return $photos;
 
     }
 
@@ -118,22 +166,6 @@ class ConditionController extends Controller
         }
 
         return $condition;
-    }
-
-
-    /*
-      Update phosots
-    */
-    private function updatePhotos($fileList, $condition_id) {
-      $photo_type = 'original';
-      $photos = [];
-
-      if (count($fileList) > 0) {
-        foreach ($fileList as $key => $file) {
-          $photos[] = $this->fileUploading($file, $photo_type, $condition_id);
-        }
-      }
-      return $photos;
     }
 
 
@@ -195,8 +227,10 @@ class ConditionController extends Controller
     public function show($id)
     {
         $condition = Condition::findOrFail($id);
-        $photos = $this->getPhotos($id);
+        $photos = $this->getPhotos($id, $this->imageSizes["large"]);
+        $thumbnails = $this->getPhotos($id, $this->imageSizes["thumbnail"]);
         $condition->images = $photos;
+        $condition->thumbnails = $thumbnails;
 
         return $condition;
     }

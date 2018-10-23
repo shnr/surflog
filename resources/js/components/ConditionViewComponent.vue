@@ -36,7 +36,7 @@
         <div class="image-panel-wrapper">        
           <div
             class="image-panel"
-            v-for="(image, imageIndex) in gellryImage"
+            v-for="(image, imageIndex) in thumbnails"
             :key="imageIndex"
             @click="index = imageIndex"
             v-bind:style="{'background-image': 'url('+image +')'}"           
@@ -129,6 +129,7 @@
           images:[]
         },
         gellryImage:[],
+        thumbnails:[],
         index: null
       }
     },
@@ -139,9 +140,19 @@
         const self = this
         self.condition = response
         self.makeGalleryArray(self.condition.images)
+        self.makeThumbnailsArray(self.condition.thumbnails)
         self.surfDate = self.dateTimeFormatter(self.condition.surf_datetime, 'Y/MM/DD hh:mm', false)
       },
 
+      // thumbnail list
+      makeThumbnailsArray(images) {
+        const self = this
+        images.forEach(function(element) {
+          self.thumbnails.push(element.path + '/' + element.name)
+        })
+      },
+
+      // fullimage list
       makeGalleryArray(images) {
         const self = this
         images.forEach(function(element) {

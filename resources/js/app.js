@@ -224,7 +224,6 @@ const store = new Vuex.Store({
     signup({commit, dispatch, state, rootState, getters, rootGetters}, formParams) {
       const self = this
       
-      console.log(formParams)
       let _data = {
         name : formParams.your_name,
         email : formParams.your_email,
@@ -233,7 +232,7 @@ const store = new Vuex.Store({
       }
       // formParams need to be checked.
       return new Promise((resolve, reject) => {
-        axios.post('/api/registerhoge', {
+        axios.post('/api/register', {
             name : formParams.your_name,
             email : formParams.your_email,
             password : formParams.your_pw,

@@ -12,12 +12,20 @@ trait PhotoTrait {
      * @param $condition_id
      * @return $photo object
      */
-    public function getPhotos($condition_id) {
+    public function getPhotos($condition_id, $photo_type) {
 
         // $photos = Photo::where('condition_id', $condition_id)->all();
-        $photos = DB::table('photos')->where('condition_id', '=', $condition_id)->get();
-        return $photos;
 
+        // single where state
+        // $photos = DB::table('photos')->where('condition_id', '=', $condition_id)->get();
+
+        // multiple where state
+        $photos = DB::table('photos')
+                ->where('condition_id', '=', $condition_id)
+                ->where('type', '=', $photo_type)
+                ->get();
+
+        return $photos;
     }
 
 
