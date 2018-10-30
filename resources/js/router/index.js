@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import NotFoundComponent from '../components/NotFoundComponent'
 import LoginComponent from '../components/LoginComponent'
 import RegisterComponent from '../components/RegisterComponent'
+// import PWResetComponent from '../components/PWResetComponent'
 
 import ConditionIndexComponent from '../components/ConditionIndexComponent'
 import ConditionViewComponent from '../components/ConditionViewComponent'
@@ -36,6 +37,11 @@ const router = new Router({
       name: 'Register',
       component: RegisterComponent
     },
+    // {
+    //   path: '/reset',
+    //   name: 'Reset',
+    //   component: PWResetComponent
+    // },
     {
       path: '/create',
       name: 'ConditionCreate',

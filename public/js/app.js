@@ -44622,6 +44622,34 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
           resolve(self.getters.getLoginStatus);
         });
       });
+    },
+
+
+    /*
+      get reset token
+    */
+    getResetToken: function getResetToken(_ref5, formParams) {
+      var commit = _ref5.commit,
+          dispatch = _ref5.dispatch,
+          state = _ref5.state,
+          rootState = _ref5.rootState,
+          getters = _ref5.getters,
+          rootGetters = _ref5.rootGetters;
+
+      var self = this;
+
+      // formParams need to be checked.
+      return new Promise(function (resolve, reject) {
+        axios.get('/api/getResetToken').then(function (response) {
+          if (response.data) {
+            // sighn up 成功
+            resolve(true);
+          }
+        }).catch(function (error) {
+          // commit('setLogInStatus', false)
+          resolve(self.getters.getLoginStatus);
+        });
+      });
     }
   },
   getters: {
@@ -67895,6 +67923,7 @@ var index_esm = {
 
 
 
+// import PWResetComponent from '../components/PWResetComponent'
 
 
 
@@ -67922,7 +67951,13 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     path: '/register',
     name: 'Register',
     component: __WEBPACK_IMPORTED_MODULE_4__components_RegisterComponent___default.a
-  }, {
+  },
+  // {
+  //   path: '/reset',
+  //   name: 'Reset',
+  //   component: PWResetComponent
+  // },
+  {
     path: '/create',
     name: 'ConditionCreate',
     component: __WEBPACK_IMPORTED_MODULE_7__components_ConditionCreateComponent___default.a
@@ -70889,7 +70924,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70950,12 +70985,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     var self = this;
     if (this.$store.getters.getLoginStatus) {
       self.$router.push('/');
+    } else {
+      self.isActive = true;
     }
   },
   mounted: function mounted() {},
@@ -70967,7 +71005,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       content: '',
       errormsg: '',
       your_email: '',
-      your_pw: ''
+      your_pw: '',
+      isActive: false
     };
   },
 
@@ -71020,148 +71059,167 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box-login" }, [
-    _c("h1", { staticClass: "ttl" }, [_vm._v("Please Login or Register")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "box-login-fbox" }, [
-      _c("div", { staticClass: "box-login-fcont box-login-fcont__login" }, [
+  return _c(
+    "div",
+    { staticClass: "box-login", class: { active: _vm.isActive } },
+    [
+      _c("h1", { staticClass: "ttl" }, [_vm._v("Please Login or Register")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-login-fbox" }, [
+        _c("div", { staticClass: "box-login-fcont box-login-fcont__login" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn__login",
+              on: { click: _vm.showLoginModal }
+            },
+            [_vm._v("Login")]
+          )
+        ]),
+        _vm._v(" "),
         _c(
-          "a",
-          { staticClass: "btn btn__login", on: { click: _vm.showLoginModal } },
-          [_vm._v("Login")]
+          "div",
+          { staticClass: "box-login-fcont box-login-fcont__register" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "btn btn__register", attrs: { to: "/register" } },
+              [_vm._v("Register")]
+            )
+          ],
+          1
         )
       ]),
       _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "box-login-fcont box-login-fcont__register" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showModal,
+              expression: "showModal"
+            }
+          ],
+          staticClass: "modal-mask"
+        },
         [
-          _c(
-            "router-link",
-            { staticClass: "btn btn__register", attrs: { to: "/register" } },
-            [_vm._v("Register")]
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showModal,
-            expression: "showModal"
-          }
-        ],
-        staticClass: "modal-mask"
-      },
-      [
-        _c("div", { staticClass: "modal-wrapper" }, [
-          _c("div", { staticClass: "modal-container" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "modal-body" },
-              [
-                _vm._t("body", [
-                  _c("p", { staticClass: "errormsg" }, [
-                    _vm._v(_vm._s(_vm.errormsg))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.your_email,
-                          expression: "your_email"
+          _c("div", { staticClass: "modal-wrapper" }, [
+            _c("div", { staticClass: "modal-container" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _vm._t("body", [
+                    _c("p", { staticClass: "errormsg" }, [
+                      _vm._v(_vm._s(_vm.errormsg))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.your_email,
+                            expression: "your_email"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "email",
+                          placeholder: "sample@mail.com"
+                        },
+                        domProps: { value: _vm.your_email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.your_email = $event.target.value
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "email",
-                        placeholder: "sample@mail.com"
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.your_pw,
+                            expression: "your_pw"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "password", name: "password" },
+                        domProps: { value: _vm.your_pw },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.your_pw = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-login",
+                        on: { click: _vm.letsLogin }
                       },
-                      domProps: { value: _vm.your_email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.your_email = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.your_pw,
-                          expression: "your_pw"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "password", name: "password" },
-                      domProps: { value: _vm.your_pw },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.your_pw = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-login",
-                      on: { click: _vm.letsLogin }
-                    },
-                    [_vm._v("Log in!")]
-                  )
-                ])
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "modal-footer" },
-              [
-                _vm._t("footer", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-close",
-                      on: { click: _vm.closeModal }
-                    },
-                    [_vm._v("\n              close\n            ")]
-                  )
-                ])
-              ],
-              2
-            )
+                      [_vm._v("Log in!")]
+                    )
+                  ])
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-footer" },
+                [
+                  _vm._t("footer", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-close",
+                        on: { click: _vm.closeModal }
+                      },
+                      [_vm._v("\n              close\n            ")]
+                    )
+                  ])
+                ],
+                2
+              )
+            ])
           ])
-        ])
-      ]
-    )
-  ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "reset_pasword" }, [
+      _c("a", { attrs: { href: "/password/reset/" } }, [
+        _vm._v("Reset Password")
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -71663,7 +71721,7 @@ var _selectOptions = {
   swellDirection: ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'],
   windStrengthMax: 20,
   windDirection: ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'],
-  wetsuits: ['semidry', '3mmfull', 'seagul', 'longspring', 'tapper', 'trunks'],
+  wetsuits: ['semidry', '3mmfull', 'seagull', 'longspring', 'tapper', 'trunks'],
   quiver: ['cipodmod', 'bic sup', 'ryko', 'cinewflyer', 'beater']
 
   // dp options
@@ -71700,6 +71758,8 @@ var _selectOptions = {
       // conveert to date object
       // for safari.
       var date = new Date(oridate.replace(/\s+/g, 'T'));
+      // console.log(oridate)
+      // console.log(date.getTimezoneOffset())
 
       var year = date.getFullYear();
       var month = date.getMonth() + 1;

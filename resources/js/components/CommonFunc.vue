@@ -56,7 +56,7 @@
           wetsuits: [
             'semidry',
             '3mmfull',
-            'seagul',
+            'seagull',
             'longspring',
             'tapper',
             'trunks'
@@ -102,10 +102,13 @@
         if (!format) {
             format = 'YYYY/MM/DD(WW) hh:mm:dd'
         }
-  
+
+
         // conveert to date object
         // for safari.
         let date = new Date( oridate.replace(/\s+/g, 'T') )
+        // console.log(oridate)
+        // console.log(date.getTimezoneOffset())
 
         var year = date.getFullYear();
         var month = (date.getMonth() + 1);

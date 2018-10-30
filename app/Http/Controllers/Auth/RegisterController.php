@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 /*
 registerの戻り値をjsonにするため、traitを作り直し
-Illuminate\Foundation\Auth\RegistersUsersのものをコピペ
+/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.phpのものを複製してcutomed traitとする
 */
 // use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\RegistersUsersCus;

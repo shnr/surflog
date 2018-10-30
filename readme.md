@@ -22,6 +22,8 @@ These features are in progress.
 - Share your session via social  
 - Auto post to wordpress  
 - Toppage animation  
+- Log sort
+- Log search
 
 
 ## Demo

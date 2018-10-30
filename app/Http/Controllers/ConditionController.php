@@ -83,6 +83,7 @@ class ConditionController extends Controller
 
 
     /*
+      Photo traitに移したほうがいいか？
       Image uploading
       Reference: http://image.intervention.io/use/basics
     */
@@ -94,8 +95,6 @@ class ConditionController extends Controller
       $keep_default_image = false; // if you keep original, set true.
       $image_maxwidth = $this->imageSizes;
 
-      // file upload sample.
-      $image = Image::make(file_get_contents($file->getRealPath()));
       // $orgfileName = $file->getClientOriginalName();
       
       $extension = $file->getClientOriginalExtension();
@@ -120,16 +119,21 @@ class ConditionController extends Controller
       }
 
       foreach ($image_maxwidth as $key => $value) {
+        
+        // Upload image constant
+        $image = Image::make(file_get_contents($file->getRealPath()));
+
         if($value ===  'original'){
           $fileName = mt_rand() . '.' . $extension;
         } else {
           $fileName = mt_rand() . '_' . $value . '.' . $extension;
           $image->resize($value, null, function ($constraint) {
               $constraint->aspectRatio();
+              // $constraint->upsize();
           });        
         }
         $imageName = $imagePath . '/' . $fileName;
-        $image->save($imageName);  
+        $image->save($imageName, 100);  
         // insert into Photo table 
         $photos[] = $this->addPhoto($fileName, $imageDir, $value, $condition_id);
       }

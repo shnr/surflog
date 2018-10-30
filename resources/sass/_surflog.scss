@@ -1,3 +1,22 @@
+// iOSでのデフォルトスタイルをリセット
+input[type="submit"],
+input[type="button"] {
+  border-radius: 0;
+  -webkit-box-sizing: content-box;
+  -webkit-appearance: button;
+  appearance: button;
+  border: none;
+  box-sizing: border-box;
+    &::-webkit-search-decoration {
+      display: none;
+    }
+    &::focus {
+      outline-offset: -2px;
+    }
+}
+
+
+
 #app {
   padding-bottom: 10.67vw;
 }
@@ -13,6 +32,8 @@ html{
 
 body{
   font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.6;
 }
 
 // btn
@@ -111,11 +132,12 @@ body{
   .foot-logout{
     position: absolute;
     right: 10px;
-    top: 0;
+    top: 50%;
+    margin-top: -13px;
   }
 
   .btn-foot-logout{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     line-height: 1.6;
     color: #fff;
     text-decoration: none;
@@ -136,6 +158,8 @@ body{
 .box-login{
   padding-top: 20px;
   position: relative;
+  @include transition(all, .7s, cubic-bezier(0.190, 1.000, 0.220, 1.000));
+  @include hp-opacity(0.0);
 
   .ttl{
     font-size: 1.8rem;
@@ -146,6 +170,10 @@ body{
     margin: 0 0 2em;
     padding: 0;
   }
+}
+
+.box-login.active{
+  @include hp-opacity(1);
 }
 
 .box-login-fbox{
@@ -182,6 +210,20 @@ body{
   background-color: #fff;
   border: 1px solid #000; 
 }
+
+.reset_pasword{
+  font-size: 1.6rem;
+  line-height: 1.6;
+  padding: 2em 0;
+  text-align: center;
+  font-weight: normal;
+
+  a{
+    color: #444;
+    text-decoration: underline;
+  }
+}
+
 
 
 // logibn modal
@@ -343,7 +385,7 @@ body{
 }
 
 .log_date{
-  font-size: 1.8rem;
+  font-size: 4.8vmin;
   line-height: 1.5;
   letter-spacing: 0.05em;
   color: #000;
@@ -360,14 +402,14 @@ body{
     margin: 0 0 5px;
 
     dt{
-      font-size: 1.3rem;
+      font-size: 3.47vmin;
       line-height: 1.5;
       color: #999;
       letter-spacing: 0.05em;
       padding: 0;
     }
     dd{
-      font-size: 1.4rem;
+      font-size: 3.73vmin;
       line-height: 1.5;
       color: #000;
       letter-spacing: 0.05em;

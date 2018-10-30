@@ -252,6 +252,55 @@ const store = new Vuex.Store({
 
     },
 
+    /*
+      get reset token
+    */
+    getResetToken({commit, dispatch, state, rootState, getters, rootGetters}, formParams) {
+      const self = this
+      
+      // formParams need to be checked.
+      return new Promise((resolve, reject) => {
+        axios.get('/api/getResetToken')
+          .then(function (response) {
+            if (response.data) {
+              // sighn up 成功
+              resolve(true)
+            }
+          })
+          .catch(function (error) {
+            // commit('setLogInStatus', false)
+            resolve(self.getters.getLoginStatus)
+          })
+      })
+
+    },
+
+
+    /*
+      reset password func
+      この機能はSPAせずデフォルト画面を使う
+    */
+    // reset({commit, dispatch, state, rootState, getters, rootGetters}, formParams) {
+    //   const self = this
+      
+    //   // formParams need to be checked.
+    //   return new Promise((resolve, reject) => {
+    //     axios.post('/api/reset', {
+    //         email : formParams.your_email,
+    //       })
+    //       .then(function (response) {
+    //         if (response.data) {
+    //           // sighn up 成功
+    //           resolve(true)
+    //         }
+    //       })
+    //       .catch(function (error) {
+    //         // commit('setLogInStatus', false)
+    //         resolve(self.getters.getLoginStatus)
+    //       })
+    //   })
+
+    // },
 
   },
   getters: {

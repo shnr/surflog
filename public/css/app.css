@@ -10923,6 +10923,28 @@ input {
 /* mixins
 --------------------------------------------------------*/
 
+input[type="submit"],
+input[type="button"] {
+  border-radius: 0;
+  -webkit-box-sizing: content-box;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+       appearance: button;
+  border: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+input[type="submit"]::-webkit-search-decoration,
+input[type="button"]::-webkit-search-decoration {
+  display: none;
+}
+
+input[type="submit"]::focus,
+input[type="button"]::focus {
+  outline-offset: -2px;
+}
+
 #app {
   padding-bottom: 10.67vw;
 }
@@ -10933,6 +10955,8 @@ html {
 
 body {
   font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.6;
 }
 
 .btn {
@@ -11019,11 +11043,12 @@ body {
 .footer .foot-logout {
   position: absolute;
   right: 10px;
-  top: 0;
+  top: 50%;
+  margin-top: -13px;
 }
 
 .footer .btn-foot-logout {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   color: #fff;
   text-decoration: none;
@@ -11037,6 +11062,13 @@ body {
 .box-login {
   padding-top: 20px;
   position: relative;
+  -webkit-transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  filter: alpha(opactiy=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
 }
 
 .box-login .ttl {
@@ -11047,6 +11079,14 @@ body {
   text-align: center;
   margin: 0 0 2em;
   padding: 0;
+}
+
+.box-login.active {
+  filter: alpha(opactiy=100);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
 }
 
 .box-login-fbox {
@@ -11085,6 +11125,19 @@ body {
   color: #000;
   background-color: #fff;
   border: 1px solid #000;
+}
+
+.reset_pasword {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  padding: 2em 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+.reset_pasword a {
+  color: #444;
+  text-decoration: underline;
 }
 
 .modal-mask {
@@ -11217,7 +11270,7 @@ body {
 }
 
 .log_date {
-  font-size: 1.8rem;
+  font-size: 4.8vmin;
   line-height: 1.5;
   letter-spacing: 0.05em;
   color: #000;
@@ -11234,7 +11287,7 @@ body {
 }
 
 .log_summary dl dt {
-  font-size: 1.3rem;
+  font-size: 3.47vmin;
   line-height: 1.5;
   color: #999;
   letter-spacing: 0.05em;
@@ -11242,7 +11295,7 @@ body {
 }
 
 .log_summary dl dd {
-  font-size: 1.4rem;
+  font-size: 3.73vmin;
   line-height: 1.5;
   color: #000;
   letter-spacing: 0.05em;

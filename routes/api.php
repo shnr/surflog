@@ -40,4 +40,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 // のauth()
 
 // Route::get('registerhoge', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+// Route::post('register', 'Auth\RegisterController@register');
+// Route::get('getResetToken', 'Auth\ResetPasswordController@getResetToken');
+// Route::post('reset', 'Auth\ResetPasswordController@reset');

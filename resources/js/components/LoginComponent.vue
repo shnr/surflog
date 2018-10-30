@@ -3,7 +3,7 @@ Modal example
 https://vuejs.org/v2/examples/modal.html
  -->
 <template>
-  <div class="box-login">
+  <div class="box-login" v-bind:class='{active:isActive}'>
     <h1 class="ttl">Please Login or Register</h1>
     <div class="box-login-fbox">
       <div class="box-login-fcont box-login-fcont__login">
@@ -13,6 +13,7 @@ https://vuejs.org/v2/examples/modal.html
         <router-link to='/register' class="btn btn__register">Register</router-link>
       </div>
     </div>
+    <p class="reset_pasword"><a href="/password/reset/" class="">Reset Password</a></p>
 
     <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper">
@@ -54,6 +55,8 @@ https://vuejs.org/v2/examples/modal.html
       const self = this
       if (this.$store.getters.getLoginStatus) {
         self.$router.push('/')
+      } else {
+        self.isActive = true
       }
     },
 
@@ -69,7 +72,8 @@ https://vuejs.org/v2/examples/modal.html
         content:'',
         errormsg:'',
         your_email: '',
-        your_pw: ''
+        your_pw: '',
+        isActive: false
       }
     },
 
