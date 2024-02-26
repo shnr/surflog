@@ -1,4 +1,4 @@
-# Surflog
+# Surflog サーフログ
 
 Surflog is a web application for take a log for your surf session.  
 The application using Vue.js for frontend, and API using Laravel.  
